@@ -11,6 +11,8 @@ import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 export default defineConfig(() => {
   const lifecycle = process.env.npm_lifecycle_event
 
@@ -43,6 +45,16 @@ export default defineConfig(() => {
       OptimizationPersist(),
       lifecycle === 'report' ? visualizer({ open: true, brotliSize: true, filename: 'report.html' }) : null
     ],
+    server: {
+      port: '8050',
+      proxy: {
+        '/api': {
+          target: 'http://localhost:3000/',
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api/, '') // 不可以省略rewrite
+        }
+      }
+    },
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url))
