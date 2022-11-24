@@ -31,19 +31,19 @@
 </template>
 
 <script setup lang="ts">
-import { UserOutlined, SettingOutlined, LogoutOutlined, BgColorsOutlined } from '@ant-design/icons-vue';
-import { apply, randomTheme } from '../../hooks/useTheme';
+import { UserOutlined, SettingOutlined, LogoutOutlined, BgColorsOutlined } from '@ant-design/icons-vue'
+import { apply, randomTheme } from '../../hooks/useTheme'
 
 export type CurrentUser = {
-  nickname: string;
-  avatar?: string;
-};
+  nickname: string
+  avatar?: string
+}
 
 defineProps<{
-  currentUser: CurrentUser;
-}>();
+  currentUser: CurrentUser
+}>()
 
 const handleClick = () => {
-  apply(randomTheme());
-};
+  apply(randomTheme())
+}
 </script>

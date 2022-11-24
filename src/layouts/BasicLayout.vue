@@ -41,48 +41,48 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter, RouterView, RouterLink } from 'vue-router';
-import { getMenuData, clearMenuItem, type RouteContextProps } from '@ant-design-vue/pro-layout';
-import { SmileOutlined, HeartOutlined } from '@ant-design/icons-vue';
+import { useRouter, RouterView, RouterLink } from 'vue-router'
+import { getMenuData, clearMenuItem, type RouteContextProps } from '@ant-design-vue/pro-layout'
+import { SmileOutlined, HeartOutlined } from '@ant-design/icons-vue'
 
-const router = useRouter();
-const { menuData } = getMenuData(clearMenuItem(router.getRoutes()));
+const router = useRouter()
+const { menuData } = getMenuData(clearMenuItem(router.getRoutes()))
 
 const state = reactive<Omit<RouteContextProps, 'menuData'>>({
   collapsed: false, // default collapsed
   openKeys: [], // defualt openKeys
-  selectedKeys: [], // default selectedKeys
-});
-const loading = ref(false);
+  selectedKeys: [] // default selectedKeys
+})
+const loading = ref(false)
 const proConfig = ref({
   layout: 'mix',
   navTheme: 'light',
   fixedHeader: true,
   fixSiderbar: true,
-  splitMenus: true,
-});
+  splitMenus: true
+})
 const breadcrumb = computed(() =>
-  router.currentRoute.value.matched.concat().map(item => {
+  router.currentRoute.value.matched.concat().map((item) => {
     return {
       path: item.path,
-      breadcrumbName: item.meta.title || '',
-    };
-  }),
-);
+      breadcrumbName: item.meta.title || ''
+    }
+  })
+)
 const currentUser = reactive({
   nickname: 'Admin',
-  avatar: 'A',
-});
+  avatar: 'A'
+})
 
 watch(
   router.currentRoute,
   () => {
-    const matched = router.currentRoute.value.matched.concat();
-    state.selectedKeys = matched.filter(r => r.name !== 'index').map(r => r.path);
-    state.openKeys = matched.filter(r => r.path !== router.currentRoute.value.path).map(r => r.path);
+    const matched = router.currentRoute.value.matched.concat()
+    state.selectedKeys = matched.filter((r) => r.name !== 'index').map((r) => r.path)
+    state.openKeys = matched.filter((r) => r.path !== router.currentRoute.value.path).map((r) => r.path)
   },
   {
-    immediate: true,
-  },
-);
+    immediate: true
+  }
+)
 </script>

@@ -32,7 +32,7 @@
         status="404"
         :style="{
           height: '100%',
-          background: '#fff',
+          background: '#fff'
         }"
         title="Hello World"
         sub-title="Sorry, you are not authorized to access this page."
@@ -46,8 +46,8 @@
 </template>
 
 <script setup lang="ts">
-import { LikeOutlined } from '@ant-design/icons-vue';
-import { useRoute } from 'vue-router';
+import { LikeOutlined } from '@ant-design/icons-vue'
+import { useRoute } from 'vue-router'
 
-const route = useRoute();
+const route = useRoute()
 </script>

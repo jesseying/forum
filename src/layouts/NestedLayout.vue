@@ -64,68 +64,68 @@
 </template>
 
 <script setup lang="ts">
-import { computed, reactive, ref, watchEffect, onMounted } from 'vue';
-import { useRouter, type RouteRecordRaw, type RouteRecordName } from 'vue-router';
-import { Avatar as AAvatar, Breadcrumb as ABreadcrumb, BreadcrumbItem as ABreadcrumbItem } from 'ant-design-vue';
-import { getMenuData, clearMenuItem, WaterMark } from '@ant-design-vue/pro-layout';
-import { UserOutlined } from '@ant-design/icons-vue';
-import type { RouteContextProps } from '@ant-design-vue/pro-layout';
+import { computed, reactive, ref, watchEffect, onMounted } from 'vue'
+import { useRouter, type RouteRecordRaw, type RouteRecordName } from 'vue-router'
+import { Avatar as AAvatar, Breadcrumb as ABreadcrumb, BreadcrumbItem as ABreadcrumbItem } from 'ant-design-vue'
+import { getMenuData, clearMenuItem, WaterMark } from '@ant-design-vue/pro-layout'
+import { UserOutlined } from '@ant-design/icons-vue'
+import type { RouteContextProps } from '@ant-design-vue/pro-layout'
 
-const loading = ref(false);
-const watermarkContent = ref('Pro Layout');
-const router = useRouter();
-const currentRouteKey = computed(() => router.currentRoute.value.matched.concat()[1].name);
-const { menuData } = getMenuData(clearMenuItem(router.getRoutes()));
+const loading = ref(false)
+const watermarkContent = ref('Pro Layout')
+const router = useRouter()
+const currentRouteKey = computed(() => router.currentRoute.value.matched.concat()[1].name)
+const { menuData } = getMenuData(clearMenuItem(router.getRoutes()))
 // flat menus
-const routes = menuData.map(item => {
+const routes = menuData.map((item) => {
   return {
     ...item,
-    children: null,
-  };
-});
+    children: null
+  }
+})
 const cachedMap = menuData.reduce((pre, cur) => {
-  const key = cur.name || cur.path;
-  const child = cur.children || [];
-  pre[key] = child;
-  return pre;
-}, {} as Record<RouteRecordName, RouteRecordRaw>);
+  const key = cur.name || cur.path
+  const child = cur.children || []
+  pre[key] = child
+  return pre
+}, {} as Record<RouteRecordName, RouteRecordRaw>)
 
-console.log('cachedMap', cachedMap);
+console.log('cachedMap', cachedMap)
 
 const baseState = reactive<Omit<RouteContextProps, 'menuData'>>({
   selectedKeys: ['/welcome'],
   openKeys: [],
   childrenSelectedKeys: [],
   childrenOpenKeys: [],
-  collapsed: false,
-});
+  collapsed: false
+})
 const breadcrumb = computed(() =>
-  router.currentRoute.value.matched.concat().map(item => {
+  router.currentRoute.value.matched.concat().map((item) => {
     return {
       path: item.path,
       icon: item.meta.icon,
       params: item.meta?.params,
-      breadcrumbName: item.meta.title || '',
-    };
-  }),
-);
+      breadcrumbName: item.meta.title || ''
+    }
+  })
+)
 watchEffect(() => {
   if (router.currentRoute) {
-    const matched = router.currentRoute.value.matched.concat();
-    baseState.selectedKeys = matched.filter(r => r.name !== 'index').map(r => r.path);
-    baseState.childrenSelectedKeys = matched.filter(r => r.name !== 'index').map(r => r.path);
-    baseState.childrenOpenKeys = matched.filter(r => r.path !== router.currentRoute.value.path).map(r => r.path);
+    const matched = router.currentRoute.value.matched.concat()
+    baseState.selectedKeys = matched.filter((r) => r.name !== 'index').map((r) => r.path)
+    baseState.childrenSelectedKeys = matched.filter((r) => r.name !== 'index').map((r) => r.path)
+    baseState.childrenOpenKeys = matched.filter((r) => r.path !== router.currentRoute.value.path).map((r) => r.path)
   }
-});
+})
 onMounted(() => {
-  loading.value = true;
-  new Promise<string>(resolve => {
+  loading.value = true
+  new Promise<string>((resolve) => {
     setTimeout(() => {
-      resolve('Sendya <18x@loacg.com>');
-    }, 2000);
-  }).then(res => {
-    watermarkContent.value = res;
-    loading.value = false;
-  });
-});
+      resolve('Sendya <18x@loacg.com>')
+    }, 2000)
+  }).then((res) => {
+    watermarkContent.value = res
+    loading.value = false
+  })
+})
 </script>

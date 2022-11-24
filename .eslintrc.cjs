@@ -16,6 +16,14 @@ module.exports = {
   },
   rules: {
     // all rules docs https://eslint.org/docs/rules/
-    'prettier/prettier': ['error', { semi: true, singleQuote: true, printWidth: 120 }],
+    'prettier/prettier': ['error', {
+      semi: false, // 结尾加分号
+      singleQuote: true, // 使用单引号
+      printWidth: 200, // 一行最大字符数
+      tabWidth: 2, // tab
+      trailingComma: 'none', // 尾部逗号
+      arrowParens: 'always', // 箭头函数单参数的情况下是否省略括号，always为总是不省略
+      
+    }],
   },
 };

@@ -1,18 +1,18 @@
-import { fileURLToPath, URL } from 'url';
+import { fileURLToPath, URL } from 'url'
 
-import { defineConfig } from 'vite';
-import vue from '@vitejs/plugin-vue';
-import vueJsx from '@vitejs/plugin-vue-jsx';
-import PkgConfig from 'vite-plugin-package-config';
-import AutoImport from 'unplugin-auto-import/vite';
-import Components from 'unplugin-vue-components/vite';
-import OptimizationPersist from 'vite-plugin-optimize-persist';
-import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
-import { visualizer } from 'rollup-plugin-visualizer';
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx'
+import PkgConfig from 'vite-plugin-package-config'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import OptimizationPersist from 'vite-plugin-optimize-persist'
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 // https://vitejs.dev/config/
 export default defineConfig(() => {
-  const lifecycle = process.env.npm_lifecycle_event;
+  const lifecycle = process.env.npm_lifecycle_event
 
   return {
     plugins: [
@@ -25,8 +25,8 @@ export default defineConfig(() => {
         eslintrc: {
           enabled: true,
           filepath: './.eslintrc-auto-import.json',
-          globalsPropValue: true,
-        },
+          globalsPropValue: true
+        }
       }),
       Components({
         dts: 'src/components.d.ts',
@@ -35,18 +35,18 @@ export default defineConfig(() => {
         extensions: ['vue', 'tsx'],
         resolvers: [
           AntDesignVueResolver({
-            importStyle: false,
-          }),
-        ],
+            importStyle: false
+          })
+        ]
       }),
       PkgConfig(),
       OptimizationPersist(),
-      lifecycle === 'report' ? visualizer({ open: true, brotliSize: true, filename: 'report.html' }) : null,
+      lifecycle === 'report' ? visualizer({ open: true, brotliSize: true, filename: 'report.html' }) : null
     ],
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-      },
+        '@': fileURLToPath(new URL('./src', import.meta.url))
+      }
     },
     css: {
       preprocessorOptions: {
@@ -56,12 +56,12 @@ export default defineConfig(() => {
           modifyVars: {
             // hack: `true; @import 'ant-design-vue/dist/antd.variable.less'`,
             // '@primary-color': '#eb2f96', // 全局主色
-          },
-        },
-      },
+          }
+        }
+      }
     },
     optimizeDeps: {
-      include: ['@ant-design/icons-vue', 'ant-design-vue'],
-    },
-  };
-});
+      include: ['@ant-design/icons-vue', 'ant-design-vue']
+    }
+  }
+})
