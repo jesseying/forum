@@ -1,72 +1,83 @@
 import axios from 'axios'
-import { generateSignature, createTimeStamp, randomString6 } from './plugins'
-import HttpUtils from '../http/HttpUtils'
+import type { AxiosInstance, AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
+import { ElMessage } from 'element-plus'
 
-export default {
-  //接口对接
-  postAction(params) {
-    // 刷新固定字符串
-    HttpUtils.encryption.ni_timestamp = createTimeStamp()
-    HttpUtils.encryption.ni_nonceStr = randomString6()
-    HttpUtils.sign = generateSignature(HttpUtils.encryption)
-    const methods = params.method == undefined ? 'POST' : params.method
-    const datas = new FormData()
-    const headers = params.header == undefined ? { 'Content-Type': 'application/json' } : params.header
-    if (params.data.p !== undefined) {
-      datas.append('p', String(params.data.p))
-    } else {
-      datas.append('p', params.data)
-    }
-    datas.append('ni_sysSrcCode', HttpUtils.encryption.ni_sysCode)
-    datas.append('ni_timestamp', HttpUtils.encryption.ni_timestamp)
-    datas.append('ni_nonceStr', HttpUtils.encryption.ni_nonceStr)
-    datas.append('ni_sign', HttpUtils.sign)
+const service: AxiosInstance = axios.create({
+  baseURL: '/api',
+  timeout: 30000
+})
 
-    return new Promise((resolve, reject) => {
-      axios({
-        url: params.url,
-        method: methods,
-        header: headers,
-        data: datas
-      })
-        .then((res) => {
-          resolve(res)
-        })
-        .catch((err) => {
-          reject(err)
-        })
-    })
+/* 请求拦截器 */
+service.interceptors.request.use(
+  (config: AxiosRequestConfig) => {
+    //  伪代码
+    // if (token) {
+    //   config.headers.Authorization = `Bearer ${token}`;
+    // }
+    return config
   },
-  //  上传文件
-  postUpload(params) {
-    // 刷新固定字符串
-    HttpUtils.encryption.ni_timestamp = createTimeStamp()
-    HttpUtils.encryption.ni_nonceStr = randomString6()
-    HttpUtils.sign = generateSignature(HttpUtils.encryption)
-    const methods = params.method == undefined ? 'POST' : params.method
-    if (params.data !== undefined) {
-      var datas = params.data
-    }
+  (error: AxiosError) => {
+    ElMessage.error(error.message)
+  }
+)
 
-    const headers = params.header == undefined ? { 'Content-Type': 'multipart/form-data' } : params.header
-    datas.append('ni_sysSrcCode', HttpUtils.encryption.ni_sysCode)
-    datas.append('ni_timestamp', HttpUtils.encryption.ni_timestamp)
-    datas.append('ni_nonceStr', HttpUtils.encryption.ni_nonceStr)
-    datas.append('ni_sign', HttpUtils.sign)
-    console.log('aaaaaa', datas)
-    return new Promise((resolve, reject) => {
-      axios({
-        url: params.url,
-        method: methods,
-        header: headers,
-        data: datas
-      })
-        .then((res) => {
-          resolve(res)
-        })
-        .catch((err) => {
-          reject(err)
-        })
-    })
+/* 响应拦截器 */
+service.interceptors.response.use(
+  (response: AxiosResponse) => {
+    const { code, message, data } = response.data
+
+    // 根据自定义错误码判断请求是否成功
+    if (code === 0) {
+      // 将组件用的数据返回
+      return data
+    } else {
+      // 处理业务错误。
+      ElMessage.error(message)
+      return Promise.reject(new Error(message))
+    }
+  },
+  (error: AxiosError) => {
+    // 处理 HTTP 网络错误
+    let message = ''
+    // HTTP 状态码
+    const status = error.response?.status
+    switch (status) {
+      case 401:
+        message = 'token 失效，请重新登录'
+        // 这里可以触发退出的 action
+        break
+      case 403:
+        message = '拒绝访问'
+        break
+      case 404:
+        message = '请求地址错误'
+        break
+      case 500:
+        message = '服务器故障'
+        break
+      default:
+        message = '网络连接故障'
+    }
+    ElMessage.error(message)
+    return Promise.reject(error)
+  }
+)
+
+/* 导出封装的请求方法 */
+export const http = {
+  get<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    return service.get(url, config)
+  },
+
+  post<T = any>(url: string, data?: object, config?: AxiosRequestConfig): Promise<T> {
+    return service.post(url, data, config)
+  },
+
+  put<T = any>(url: string, data?: object, config?: AxiosRequestConfig): Promise<T> {
+    return service.put(url, data, config)
+  },
+
+  delete<T = any>(url: string, config?: AxiosRequestConfig): Promise<T> {
+    return service.delete(url, config)
   }
 }

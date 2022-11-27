@@ -9,6 +9,7 @@ import Components from 'unplugin-vue-components/vite'
 import OptimizationPersist from 'vite-plugin-optimize-persist'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
+import { viteMockServe } from 'vite-plugin-mock'
 
 // https://vitejs.dev/config/
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
@@ -20,6 +21,7 @@ export default defineConfig(() => {
     plugins: [
       vue(),
       vueJsx(),
+      viteMockServe(),
       AutoImport({
         dts: 'src/auto-imports.d.ts',
         imports: ['vue', 'vue-router'],
@@ -73,7 +75,7 @@ export default defineConfig(() => {
       }
     },
     optimizeDeps: {
-      include: ['@ant-design/icons-vue', 'ant-design-vue']
+      // include: ['@ant-design/icons-vue', 'element-plus']
     }
   }
 })

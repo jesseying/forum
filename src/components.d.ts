@@ -5,7 +5,6 @@
 declare module 'vue' {
   export interface GlobalComponents {
     RightContent: typeof import('./components/RightContent/RightContent.vue')['default']
-    SettingDrawer: typeof import('./components/SettingDrawer/SettingDrawer.vue')['default']
   }
 }
 

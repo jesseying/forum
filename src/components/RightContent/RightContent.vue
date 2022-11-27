@@ -15,7 +15,7 @@
               <template #icon>
                 <LogoutOutlined />
               </template>
-              <span>退出登录</span>
+              <router-link to="/login">退出登陆</router-link>
             </a-menu-item>
           </a-menu>
         </template>
@@ -32,18 +32,19 @@
 
 <script setup lang="ts">
 import { UserOutlined, SettingOutlined, LogoutOutlined, BgColorsOutlined } from '@ant-design/icons-vue'
-import { apply, randomTheme } from '../../hooks/useTheme'
+import { apply, randomTheme } from '@/hooks/useTheme'
 
 export type CurrentUser = {
   nickname: string
   avatar?: string
 }
-
+let openKeys = []
 defineProps<{
   currentUser: CurrentUser
 }>()
 
 const handleClick = () => {
+  console.log(1)
   apply(randomTheme())
 }
 </script>
