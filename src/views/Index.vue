@@ -1,5 +1,5 @@
 <template>
-  <p>{{ mess }}</p>
+  <VsTemplate></VsTemplate>
 </template>
 
 <script setup lang="ts">
