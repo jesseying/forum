@@ -4,7 +4,7 @@ import { ElMessage } from 'element-plus'
 
 const service: AxiosInstance = axios.create({
   baseURL: '/api',
-  timeout: 30000
+  timeout: 3000
 })
 
 /* 请求拦截器 */
@@ -38,7 +38,7 @@ service.interceptors.response.use(
   },
   (error: AxiosError) => {
     // 处理 HTTP 网络错误
-    let message = ''
+    let message: string
     // HTTP 状态码
     const status = error.response?.status
     switch (status) {

@@ -1,13 +1,9 @@
 <template>
-  <el-row :gutter="10">
-    <el-col :span="12">
-      <div id="inputContainer" ref="inputContainer" style="height: 80vh; max-width: 100%"></div>
-    </el-col>
-  </el-row>
+  <div id="inputContainer" ref="inputContainer" style="height: 700px; max-width: 100%"></div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, watch } from 'vue'
+import { ref, onMounted } from 'vue'
 import * as monaco from 'monaco-editor'
 import EditorWorker from 'monaco-editor/esm/vs/editor/editor.worker?worker'
 import JsonWorker from 'monaco-editor/esm/vs/language/json/json.worker?worker'
@@ -16,6 +12,24 @@ import HtmlWorker from 'monaco-editor/esm/vs/language/html/html.worker?worker'
 import TsWorker from 'monaco-editor/esm/vs/language/typescript/ts.worker?worker'
 // eslint-disable-next-line no-undef
 import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor
+interface Props {
+  params?: {
+    value?: string
+    language?: string
+    fontSize?: number
+    // height: number | string
+  }
+}
+const props = withDefaults(defineProps<Props>(), {
+  params: () => {
+    return {
+      value: '',
+      language: 'javascript',
+      fontSize: 16
+      // height: '200px'
+    }
+  }
+})
 ;(self as any).MonacoEnvironment = {
   getWorker(_: any, label: any) {
     if (label === 'json') {
@@ -37,14 +51,17 @@ import IStandaloneCodeEditor = monaco.editor.IStandaloneCodeEditor
 const inputEditor = ref<IStandaloneCodeEditor>()
 const inputContainer = ref<HTMLElement>()
 onMounted(() => {
+  const value = props.params.value
+  const language = props.params.language
+  const fontSize = props.params.fontSize
   if (inputContainer.value) {
     inputEditor.value = monaco.editor.create(inputContainer.value, {
-      value: '', // 编辑器的初始值
-      language: 'javascript', // 编辑器的语言类型
+      value: value, // 编辑器的初始值
+      language: language, // 编辑器的语言类型
       theme: 'vs-dark', // 主题
       formatOnPaste: true, // 使用粘贴格式，默认false
       automaticLayout: true,
-      fontSize: 16,
+      fontSize: fontSize,
       minimap: {
         enabled: false // 关闭小地图
       },
@@ -58,16 +75,11 @@ onMounted(() => {
     setInterval(() => {
       if (inputEditor.value) {
         localStorage.setItem('draft', toRaw(inputEditor.value).getValue())
+        // console.log(toRaw(inputEditor.value).getValue())
+        // console.log(typeof toRaw(inputEditor.value).getValue())
       }
     }, 3000)
-    console.log(ref[0])
   }
-  watch(
-    () => inputEditor.value,
-    (value, oldValue) => {
-      console.log(oldValue)
-    }
-  )
 })
 </script>
 
