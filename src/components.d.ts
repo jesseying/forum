@@ -4,7 +4,11 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Aside: typeof import('./components/common/jContainer/src/aside.vue')['default']
+    Footer: typeof import('./components/common/jContainer/src/footer.vue')['default']
+    Header: typeof import('./components/common/jContainer/src/header.vue')['default']
     Index: typeof import('./components/common/jContainer/src/Index.vue')['default']
+    Main: typeof import('./components/common/jContainer/src/main.vue')['default']
     RightContent: typeof import('./components/RightContent/RightContent.vue')['default']
   }
 }

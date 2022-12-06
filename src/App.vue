@@ -1,5 +1,7 @@
 <template>
-  <router-view />
+  <jContainer>
+    <router-view />
+  </jContainer>
 </template>
 
 <script setup lang="ts">
