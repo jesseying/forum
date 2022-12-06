@@ -4,7 +4,7 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Index: typeof import('./components/common/jTable/src/Index.vue')['default']
+    Index: typeof import('./components/common/jContainer/src/Index.vue')['default']
     RightContent: typeof import('./components/RightContent/RightContent.vue')['default']
   }
 }

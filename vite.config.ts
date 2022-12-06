@@ -1,7 +1,7 @@
 import { fileURLToPath, URL } from 'url'
 
 import { defineConfig } from 'vite'
-import type { ConfigEnv } from 'vite'
+import type { ConfigEnv, ProxyOptions, UserConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import PkgConfig from 'vite-plugin-package-config'
@@ -11,15 +11,23 @@ import OptimizationPersist from 'vite-plugin-optimize-persist'
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers'
 import { visualizer } from 'rollup-plugin-visualizer'
 import { viteMockServe } from 'vite-plugin-mock'
-
+import { loadEnv } from './src/utils/vite'
 // https://vitejs.dev/config/
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-export default defineConfig(({ command }: ConfigEnv) => {
+export default defineConfig(({ mode }: ConfigEnv): UserConfig => {
   const lifecycle = process.env.npm_lifecycle_event
-
+  const { VITE_PORT, VITE_OPEN, VITE_BASE_PATH, VITE_OUT_DIR, VITE_PROXY_URL } = loadEnv(mode)
+  let proxy: Record<string, string | ProxyOptions> = {}
+  if (VITE_PROXY_URL) {
+    proxy = {
+      '/api': {
+        target: VITE_PROXY_URL,
+        changeOrigin: true,
+        rewrite: (path: any) => path.replace(/^\/api/, '') // 不可以省略rewrite
+      }
+    }
+  }
   return {
-    base: './',
+    base: VITE_BASE_PATH,
     plugins: [
       vue(),
       vueJsx(),
@@ -56,14 +64,9 @@ export default defineConfig(({ command }: ConfigEnv) => {
       lifecycle === 'report' ? visualizer({ open: true, brotliSize: true, filename: 'report.html' }) : null
     ],
     server: {
-      port: '8050',
-      proxy: {
-        '/api': {
-          target: 'http://localhost:3000/',
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, '') // 不可以省略rewrite
-        }
-      }
+      port: VITE_PORT,
+      proxy: proxy,
+      open: VITE_OPEN
     },
     resolve: {
       alias: {
@@ -94,7 +97,7 @@ export default defineConfig(({ command }: ConfigEnv) => {
           drop_console: true
         }
       },
-      outDir: 'dist', //指定输出路径
+      outDir: VITE_OUT_DIR, //指定输出路径
       assetsDir: 'assets' //指定生成静态资源的存放路径
     }
   }

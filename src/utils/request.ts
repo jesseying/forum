@@ -42,21 +42,48 @@ service.interceptors.response.use(
     // HTTP 状态码
     const status = error.response?.status
     switch (status) {
+      case 302:
+        message = 'axios.Interface redirected!'
+        break
+      case 400:
+        message = 'axios.Incorrect parameter!'
+        break
       case 401:
-        message = 'token 失效，请重新登录'
-        // 这里可以触发退出的 action
+        message = 'axios.You are not logged in, or the login has timed out. Please log in first!'
         break
       case 403:
-        message = '拒绝访问'
+        message = 'axios.You do not have permission to operate!'
         break
       case 404:
-        message = '请求地址错误'
+        message = 'axios.Error requesting address:' + error.response?.config.url
+        break
+      case 408:
+        message = 'axios.Request timed out!'
+        break
+      case 409:
+        message = 'axios.The same data already exists in the system!'
         break
       case 500:
-        message = '服务器故障'
+        message = 'axios.Server internal error!'
+        break
+      case 501:
+        message = 'axios.Service not implemented!'
+        break
+      case 502:
+        message = 'axios.Gateway error!'
+        break
+      case 503:
+        message = 'axios.Service unavailable!'
+        break
+      case 504:
+        message = 'axios.The service is temporarily unavailable. Please try again later!'
+        break
+      case 505:
+        message = 'axios.HTTP version is not supported!'
         break
       default:
-        message = '网络连接故障'
+        message = 'axios.Abnormal problem, please contact the website administrator!'
+        break
     }
     ElMessage.error(message)
     return Promise.reject(error)

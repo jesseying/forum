@@ -1,37 +1,30 @@
-import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
-import { getRouters } from '@/api/router'
+import { createRouter, createWebHistory } from 'vue-router'
+import { staticRoutes } from '@/router/static'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+import { loading } from '@//utils/loading'
 // only githubpages preview site used, if use template please remove this check
 // and use `createWebHistory` is recommend
-const hasGithubPages = import.meta.env.VITE_GHPAGES
-let routerData: any
-getRouters().then((res) => {
-  routerData = res.data
-  console.log(res)
+const router = createRouter({
+  history: createWebHistory(),
+  routes: staticRoutes
 })
-console.log(routerData)
-export default createRouter({
-  history: hasGithubPages ? createWebHashHistory() : createWebHistory(),
-  routes: [
-    {
-      path: '/',
-      name: 'Index',
-      meta: { title: 'Index' },
-      component: () => import('../views/Index.vue')
-      // redirect: '/'
-      // children: [
-      //   {
-      //     path: '/index',
-      //     name: 'index',
-      //     meta: { title: 'index' },
-      //     component: () => import('')
-      //   }
-      // ]
-    },
-    {
-      path: '/login',
-      name: 'login',
-      meta: { title: 'Login' },
-      component: () => import('../views/Login.vue')
-    }
-  ]
+router.beforeEach((to, from, next) => {
+  NProgress.configure({ showSpinner: false })
+  NProgress.start()
+  if (!window.existLoading) {
+    loading.show()
+    window.existLoading = true
+  }
+  next()
 })
+
+// 路由加载后
+router.afterEach(() => {
+  if (window.existLoading) {
+    loading.hide()
+  }
+  NProgress.done()
+})
+
+export default router
