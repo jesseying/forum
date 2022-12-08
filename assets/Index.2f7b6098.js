@@ -1,1 +1,0 @@
-import{_ as n,d as o,o as s,c as r,t}from"./index.4e1f3889.js";const c=o({setup(a){console.log("index");const e="index";return(i,_)=>(s(),r("p",null,t(e)))}});var p=n(c,[["__file","/home/runner/work/nsiForum/nsiForum/src/views/Index.vue"]]);export{p as default};
