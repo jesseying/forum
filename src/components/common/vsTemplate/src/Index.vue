@@ -17,6 +17,7 @@ interface Props {
     value?: string
     language?: string
     fontSize?: number
+    fileName?: string
     // height: number | string
   }
 }
@@ -25,7 +26,8 @@ const props = withDefaults(defineProps<Props>(), {
     return {
       value: '',
       language: 'javascript',
-      fontSize: 16
+      fontSize: 16,
+      fileName: '*'
       // height: '200px'
     }
   }
@@ -74,6 +76,7 @@ onMounted(() => {
     }, 500)
     setInterval(() => {
       if (inputEditor.value) {
+        // eslint-disable-next-line no-undef
         localStorage.setItem('draft', toRaw(inputEditor.value).getValue())
         // console.log(toRaw(inputEditor.value).getValue())
         // console.log(typeof toRaw(inputEditor.value).getValue())
