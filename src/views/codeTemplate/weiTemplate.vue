@@ -47,7 +47,7 @@ const templates = [
       '' +
       'mounted() {\n' +
       '  ' +
-      'if (this.$route.query.login_d == undefined) {\n' +
+      'if (this.$route.query.login_id == undefined) {\n' +
       '    ' +
       'this.wxFlag = false\n' +
       '  ' +
