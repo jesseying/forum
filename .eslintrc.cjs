@@ -9,7 +9,6 @@ module.exports = {
     '@vue/eslint-config-typescript/recommended',
     '@vue/eslint-config-prettier',
     // unplugin-auto-import :: generated automatically
-    './.eslintrc-auto-import.json',
   ],
   env: {
     browser: true,

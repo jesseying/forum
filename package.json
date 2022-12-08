@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "vite",
     "dev:force": "vite --force",
-    "build": "vite build && esno ./src/utils/build.ts",
+    "build": "vue-tsc -noEmit && vite build",
     "build:ghpages": "vue-tsc --noEmit && vite build --base=/preview-pro/ --mode=ghpages",
     "report": "vite build",
     "preview": "vite preview --port 5050",
@@ -14,15 +14,7 @@
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts,json --fix --ignore-path .gitignore"
   },
   "dependencies": {
-    "axios": "^1.2.0",
-    "echarts": "~5.2.2",
-    "element-plus": "^2.2.25",
-    "monaco-editor": "^0.34.1",
-    "nprogress": "^0.2.0",
-    "pinia": "^2.0.11",
-    "pinia-plugin-persistedstate": "^1.2.3",
-    "vue": "^3.2.33",
-    "vue-router": "^4.0.14"
+    "vue": "^3.2.33"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.3",
@@ -34,11 +26,17 @@
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^10.0.0",
     "@vue/tsconfig": "^0.1.3",
+    "axios": "^1.2.0",
     "dotenv": "~11.0.0",
+    "echarts": "~5.2.2",
+    "element-plus": "^2.2.25",
     "eslint": "^8.13.0",
     "eslint-plugin-vue": "^8.6.0",
-    "less": "^4.1.2",
+    "nprogress": "^0.2.0",
+    "monaco-editor": "^0.34.1",
     "mockjs": "^1.1.0",
+    "pinia": "^2.0.11",
+    "pinia-plugin-persistedstate": "^1.2.3",
     "prettier": "^2.6.2",
     "rollup-plugin-visualizer": "^5.6.0",
     "sass": "^1.47.0",
@@ -50,6 +48,7 @@
     "vite-plugin-optimize-persist": "^0.1.2",
     "vite-plugin-package-config": "^0.1.1",
     "vitest": "^0.9.3",
+    "vue-router": "^4.0.14",
     "vue-tsc": "^0.34.6"
   },
   "author": {
