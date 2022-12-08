@@ -10,6 +10,10 @@ console.log(router)
 </script>
 
 <style>
+body {
+  padding: 0;
+  margin: 0;
+}
 #app {
   height: 100%;
 }

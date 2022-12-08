@@ -4,9 +4,8 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": [
-      "node"
-    ]
+    "types": ["node"],
+    "skipLibCheck": true
   },
   "files": [],
   "references": [

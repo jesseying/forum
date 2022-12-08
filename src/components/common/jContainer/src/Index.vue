@@ -1,16 +1,22 @@
 <template>
   <div class="common-layout">
-    <el-container class="is-vertical">
-      <Header />
-      <el-scrollbar ref="mainScrollbarRef">
-        <el-row class="frontend-footer-brother" justify="center">
-          <el-col class="user-layouts" :span="16" :xs="24">
-            <Aside class="hidden-sm-and-down" />
-            <slot></slot>
-          </el-col>
-        </el-row>
-        <Footer />
-      </el-scrollbar>
+    <el-container>
+      <el-header>
+        <Header />
+      </el-header>
+      <el-container>
+        <el-aside style="width: 200px">
+          <Aside />
+        </el-aside>
+        <el-container>
+          <el-main>
+            <slot />
+          </el-main>
+          <el-footer class="footer">
+            <Footer />
+          </el-footer>
+        </el-container>
+      </el-container>
     </el-container>
   </div>
 </template>
@@ -24,14 +30,27 @@ console.log(router)
 </script>
 
 <style scoped lang="scss">
-.user-layouts {
-  display: flex;
-  padding-top: 15px;
-  align-items: flex-start;
+.layout-container-demo .el-header {
+  position: relative;
+  background-color: var(--el-color-primary-light-7);
+  color: var(--el-text-color-primary);
+  line-height: 50px;
 }
-@media screen and (max-width: 768px) {
-  .user-layouts {
-    padding-top: 0;
-  }
+.layout-container-demo .el-aside {
+  color: var(--el-text-color-primary);
+  background: var(--el-color-primary-light-8);
+}
+.layout-container-demo .el-menu {
+  border-right: none;
+}
+.layout-container-demo .el-main {
+  padding: 0;
+}
+.layout-container-demo .toolbar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  right: 20px;
 }
 </style>
