@@ -1,4 +1,4 @@
-import{_ as c,d as p,e,f as m,w as a,o as l,c as d,h as g,F as _,g as o,i as f,t as h}from"./index.e7af1427.js";const v=p({__name:"weiTemplate",setup(w){const s=[{value:`<template>
+import{_ as c,d as p,e,f as m,w as a,o as l,c as d,h as g,F as _,g as o,i as f,t as h}from"./index.a45b8404.js";const v=p({__name:"weiTemplate",setup(w){const s=[{value:`<template>
   <div class="content_v">
     <div class="page_title" v-if="!wxFlag">
       <el-page-header @back="goBack" content="\u503C\u73ED\u6982\u89C8"/>
@@ -16,7 +16,7 @@ export default {
   }
 },
 mounted() {
-  if (this.$route.query.login_d == undefined) {
+  if (this.$route.query.login_id == undefined) {
     this.wxFlag = false
   } else {
     this.loginId = this.$route.query.login_id
