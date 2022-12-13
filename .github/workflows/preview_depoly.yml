@@ -28,7 +28,7 @@ jobs:
           run_install: true
 
       - name: build
-        run: pnpm build:ghpages
+        run: pnpm build
 
       - uses: peaceiris/actions-gh-pages@v3
         with:
