@@ -6,7 +6,7 @@ import App from './App.vue'
 import CustomCompoments from './components/common'
 
 const app = createApp(App)
-console.log(import.meta.env)
+// console.log(import.meta.env)
 app.use(router)
 app.use(CustomCompoments)
 app.use(ElementPlus)

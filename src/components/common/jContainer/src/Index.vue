@@ -5,7 +5,7 @@
         <Header />
       </el-header>
       <el-container>
-        <el-aside style="width: 200px">
+        <el-aside style="width: 200px" v-if="props.isTeacher">
           <Aside />
         </el-aside>
         <el-container>
@@ -22,11 +22,15 @@
 </template>
 
 <script setup lang="ts">
-import router from '@/router'
 import Header from './header.vue'
 import Aside from './aside.vue'
 import Footer from './footer.vue'
-console.log(router)
+interface Props {
+  isTeacher?: boolean
+}
+const props = withDefaults(defineProps<Props>(), {
+  isTeacher: false
+})
 </script>
 
 <style scoped lang="scss">
