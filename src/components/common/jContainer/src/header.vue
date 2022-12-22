@@ -14,9 +14,9 @@
                 <span style="margin: 0 10px 0 0">Jesse</span>
                 <img style="width: 40px; height: 40px; border-radius: 50%" :src="imgUrl" alt="头像" />
               </template>
-              <el-menu-item index="2-1">item one</el-menu-item>
-              <el-menu-item index="2-2">item two</el-menu-item>
-              <el-menu-item index="2-3">item three</el-menu-item>
+              <el-menu-item index="2-1">个人中心</el-menu-item>
+              <el-menu-item index="2-2">个人设置</el-menu-item>
+              <el-menu-item index="/login">登录</el-menu-item>
             </el-sub-menu>
           </el-menu>
         </div>
