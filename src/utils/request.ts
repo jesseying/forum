@@ -28,7 +28,7 @@ service.interceptors.response.use(
     // 根据自定义错误码判断请求是否成功
     if (code === 200) {
       // 将组件用的数据返回
-      return data
+      return response.data
     } else {
       // 处理业务错误。
       ElMessage.error(message)

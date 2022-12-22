@@ -5,6 +5,6 @@ import type { categories } from '@/api/category/types'
  * 分类列表
  */
 function getCategories() {
-  return http.get<categories>('rest/categories').then((res) => res)
+  return http.get<categories>('rest/categories')
 }
 export { getCategories }

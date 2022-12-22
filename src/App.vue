@@ -1,6 +1,8 @@
 <template>
   <jContainer>
-    <router-view />
+    <Suspense>
+      <router-view />
+    </Suspense>
   </jContainer>
 </template>
 

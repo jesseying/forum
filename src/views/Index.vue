@@ -15,13 +15,12 @@
     </el-col>
 
   </el-row>
-
 </template>
 
 <script setup lang="ts">
 import { getCategories } from '@/api/category'
-const res = getCategories()
-
+const res = await getCategories()
+console.log(res)
 </script>
 
 <style scoped>
