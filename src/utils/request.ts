@@ -28,12 +28,10 @@ service.interceptors.response.use(
     // 根据自定义错误码判断请求是否成功
     if (code === 200) {
       // 将组件用的数据返回
-      console.log('code 200')
       return data
     } else {
       // 处理业务错误。
       ElMessage.error(message)
-      console.log('code' + code)
       return Promise.reject(new Error(message))
     }
   },
@@ -44,43 +42,43 @@ service.interceptors.response.use(
     const status = error.response?.status
     switch (status) {
       case 302:
-        message = 'axios.Interface redirected!'
+        message = 'Interface redirected!'
         break
       case 400:
-        message = 'axios.Incorrect parameter!'
+        message = 'Incorrect parameter!'
         break
       case 401:
-        message = 'axios.You are not logged in, or the login has timed out. Please log in first!'
+        message = 'You are not logged in, or the login has timed out. Please log in first!'
         break
       case 403:
-        message = 'axios.You do not have permission to operate!'
+        message = 'You do not have permission to operate!'
         break
       case 404:
-        message = 'axios.Error requesting address:' + error.response?.config.url
+        message = 'Not found!'
         break
       case 408:
-        message = '请求超时！'
+        message = 'Time out!'
         break
       case 409:
-        message = 'axios.The same data already exists in the system!'
+        message = 'The same data already exists in the system!'
         break
       case 500:
-        message = 'axios.Server internal error!'
+        message = 'Server internal error!'
         break
       case 501:
-        message = 'axios.Service not implemented!'
+        message = 'Service error!'
         break
       case 502:
-        message = 'axios.Gateway error!'
+        message = 'Gateway error!'
         break
       case 503:
-        message = 'axios.Service unavailable!'
+        message = 'Service unavailable!'
         break
       case 504:
-        message = 'axios.The service is temporarily unavailable. Please try again later!'
+        message = 'The service is temporarily unavailable. Please try again later!'
         break
       case 505:
-        message = 'axios.HTTP version is not supported!'
+        message = 'HTTP version is not supported!'
         break
       default:
         // @ts-ignore
