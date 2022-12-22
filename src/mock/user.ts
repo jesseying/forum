@@ -1,5 +1,5 @@
 // mock/user.ts
-import { Mock } from 'mockjs'
+// import { Mock } from 'mockjs'
 
 export default [
   // 用户登录

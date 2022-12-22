@@ -30,10 +30,16 @@ const staticRoutes: Array<RouteRecordRaw> = [
     component: () => import('../views/Login.vue')
   },
   {
+    path: '/adminIndex',
+    name: 'adminIndex',
+    meta: { title: 'adminIndex' },
+    component: () => import('../views/admin/index.vue')
+  },
+  {
     path: '/weiTemplate',
     name: 'weiTemplate',
     meta: { title: 'weiTemplate' },
-    component: () => import('../views/codeTemplate/weiTemplate.vue')
+    component: () => import('../views/admin/codeTemplate/weiTemplate.vue')
   }
 ]
 

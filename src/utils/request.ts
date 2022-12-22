@@ -4,7 +4,7 @@ import { ElMessage } from 'element-plus'
 
 const service: AxiosInstance = axios.create({
   baseURL: '/api',
-  timeout: 3000
+  timeout: 30000
 })
 
 /* 请求拦截器 */
@@ -25,14 +25,15 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response: AxiosResponse) => {
     const { code, message, data } = response.data
-
     // 根据自定义错误码判断请求是否成功
-    if (code === 0) {
+    if (code === 200) {
       // 将组件用的数据返回
+      console.log('code 200')
       return data
     } else {
       // 处理业务错误。
       ElMessage.error(message)
+      console.log('code' + code)
       return Promise.reject(new Error(message))
     }
   },
@@ -58,7 +59,7 @@ service.interceptors.response.use(
         message = 'axios.Error requesting address:' + error.response?.config.url
         break
       case 408:
-        message = 'axios.Request timed out!'
+        message = '请求超时！'
         break
       case 409:
         message = 'axios.The same data already exists in the system!'
@@ -82,7 +83,8 @@ service.interceptors.response.use(
         message = 'axios.HTTP version is not supported!'
         break
       default:
-        message = 'axios.Abnormal problem, please contact the website administrator!'
+        // @ts-ignore
+        message = error.response?.data.message
         break
     }
     ElMessage.error(message)

@@ -1,36 +1,25 @@
 <template>
-  <div class="common-layout">
-    <el-container>
-      <el-header>
-        <Header />
-      </el-header>
+  <el-scrollbar :height="height" :max-height="height" :native="false">
+    <div class="common-layout">
       <el-container>
-        <el-aside style="width: 200px" v-if="props.isTeacher">
-          <Aside />
-        </el-aside>
-        <el-container>
-          <el-main>
-            <slot />
-          </el-main>
-          <el-footer class="footer">
-            <Footer />
-          </el-footer>
-        </el-container>
+        <el-header>
+          <Header />
+        </el-header>
+        <el-main>
+          <slot />
+        </el-main>
+        <el-footer class="footer">
+          <Footer />
+        </el-footer>
       </el-container>
-    </el-container>
-  </div>
+    </div>
+  </el-scrollbar>
 </template>
 
 <script setup lang="ts">
 import Header from './header.vue'
-import Aside from './aside.vue'
 import Footer from './footer.vue'
-interface Props {
-  isTeacher?: boolean
-}
-const props = withDefaults(defineProps<Props>(), {
-  isTeacher: false
-})
+const height = window.innerHeight
 </script>
 
 <style scoped lang="scss">
@@ -56,5 +45,8 @@ const props = withDefaults(defineProps<Props>(), {
   justify-content: center;
   height: 100%;
   right: 20px;
+}
+.footer {
+  background: var(--el-bg-color);
 }
 </style>

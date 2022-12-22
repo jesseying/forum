@@ -13,15 +13,15 @@ import { viteMockServe } from 'vite-plugin-mock'
 export default ({ mode }) => {
   const VITE_BASE_URL: string = loadEnv(mode, process.cwd()).VITE_BASE_URL
   return defineConfig({
-    base: './',
+    base: '/',
     plugins: [
       vue(),
       vueJsx(),
       viteMockServe({
-        mockPath: 'mock', // mock文件地址
-        localEnabled: !!process.env.USE_MOCK, // 开发打包开关
-        prodEnabled: !!process.env.USE_CHUNK_MOCK, // 生产打包开关
-        logger: false, //是否在控制台显示请求日志
+        mockPath: './src/mock', // mock文件地址
+        localEnabled: true, // 开发打包开关
+        prodEnabled: false, // 生产打包开关
+        logger: true, //是否在控制台显示请求日志
         supportTs: true
       }),
       AutoImport({

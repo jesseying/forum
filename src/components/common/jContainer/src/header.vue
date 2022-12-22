@@ -44,7 +44,7 @@ const imgUrl = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jp
   .navbar-wrapper {
     position: relative;
     border-bottom: 1px solid #dcdfe6;
-    height: var(--header-height);
+    height: var(--el-header-height);
     padding: 0 12px 0 24px;
     background-image: radial-gradient(transparent 1px, #fff 1px);
     background-size: 4px 4px;
@@ -58,7 +58,7 @@ const imgUrl = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jp
       .logo-container {
         display: flex;
         align-items: center;
-        height: var(--header-height);
+        height: var(--el-header-height);
       }
       .content {
         display: flex;
@@ -66,7 +66,7 @@ const imgUrl = 'https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jp
         align-items: center;
         flex-grow: 1;
         .el-menu-demo {
-          height: 55px;
+          height: 60px;
         }
       }
     }

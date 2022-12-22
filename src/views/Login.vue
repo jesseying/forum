@@ -22,8 +22,7 @@ const form = reactive({
   password: ''
 })
 const onSubmit = async () => {
-  console.log(1)
-  const res = await login(form)
+  const res = await login(form).catch(() => {})
   console.log(res)
 }
 </script>
