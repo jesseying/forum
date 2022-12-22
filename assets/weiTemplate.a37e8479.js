@@ -1,4 +1,4 @@
-import{d as c,a as e,o as a,b as p,w as l,c as d,g,F as m,e as n,h as f,t as _}from"./index.30edbb9d.js";const w=c({setup(h){const o=[{value:`<template>
+import{d as c,r as e,o as a,c as p,a as l,j as d,k as g,F as m,b as n,m as f,t as _}from"./index.f4b1f889.js";const k=c({setup(h){const o=[{value:`<template>
   <div class="content_v">
     <div class="page_title" v-if="!wxFlag">
       <el-page-header @back="goBack" content="\u503C\u73ED\u6982\u89C8"/>
@@ -48,4 +48,4 @@ mounted() {
   name: '/*',
   meta: { title: '*' },
   component: () => import('@view/*.vue')
-}`,language:"javascript",fileName:"router.js"}];return(v,y)=>{const s=e("VsTemplate"),i=e("el-col"),r=e("el-row");return a(),p(r,{gutter:10},{default:l(()=>[(a(),d(m,null,g(o,(t,u)=>n(i,{span:12,key:u},{default:l(()=>[f("p",null,"\u6587\u4EF6\uFF1A"+_(t.fileName),1),n(s,{params:t},null,8,["params"])]),_:2},1024)),64))]),_:1})}}});export{w as default};
+}`,language:"javascript",fileName:"router.js"}];return(v,y)=>{const s=e("VsTemplate"),i=e("el-col"),r=e("el-row");return a(),p(r,{gutter:10},{default:l(()=>[(a(),d(m,null,g(o,(t,u)=>n(i,{span:12,key:u},{default:l(()=>[f("p",null,"\u6587\u4EF6\uFF1A"+_(t.fileName),1),n(s,{params:t},null,8,["params"])]),_:2},1024)),64))]),_:1})}}});export{k as default};
