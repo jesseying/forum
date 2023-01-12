@@ -7,25 +7,20 @@
     "types": [
       "node",
       "vite/client",
-      "./env"
+      // "./env"
     ],
+    "module": "esnext",
+    "target": "esnext",
     "skipLibCheck": true,
     // 不允许出现不明确类型的this
     "noImplicitThis": true,
     // 严格检查空值
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+	  "jsx": "preserve",
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.vite-config.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.vitest.json"
-    }
-  ],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx" ,"src/**/*.vue", "src/mock/**/*.ts"],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

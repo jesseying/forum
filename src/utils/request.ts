@@ -4,7 +4,7 @@ import { ElMessage } from 'element-plus'
 
 const service: AxiosInstance = axios.create({
   baseURL: '/api',
-  timeout: 30000
+  timeout: 3000
 })
 
 /* 请求拦截器 */
@@ -35,7 +35,7 @@ service.interceptors.response.use(
       return Promise.reject(new Error(message))
     }
   },
-  (error: AxiosError) => {
+  (error: AxiosError | any) => {
     // 处理 HTTP 网络错误
     let message: string
     // HTTP 状态码
@@ -63,7 +63,7 @@ service.interceptors.response.use(
         message = 'The same data already exists in the system!'
         break
       case 500:
-        message = 'Server internal error!'
+        message = 'Server error!'
         break
       case 501:
         message = 'Service error!'
@@ -81,8 +81,7 @@ service.interceptors.response.use(
         message = 'HTTP version is not supported!'
         break
       default:
-        // @ts-ignore
-        message = error.response?.data.message
+        message = error.response.data.message === undefined ? error.message : error.response?.data.message
         break
     }
     ElMessage.error(message)

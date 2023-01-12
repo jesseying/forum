@@ -1,5 +1,5 @@
-import { fileURLToPath, URL } from 'url'
-import { defineConfig, loadEnv } from 'vite'
+import { defineConfig } from 'vite'
+import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import PkgConfig from 'vite-plugin-package-config'
@@ -8,22 +8,15 @@ import Components from 'unplugin-vue-components/vite'
 import OptimizationPersist from 'vite-plugin-optimize-persist'
 import { viteMockServe } from 'vite-plugin-mock'
 // https://vitejs.dev/config/
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore
-export default ({ mode }) => {
-  const VITE_BASE_URL: string = loadEnv(mode, process.cwd()).VITE_BASE_URL
+export default () => {
+  const VITE_BASE_URL: string = process.env.VITE_BASE_URL
   return defineConfig({
     base: '/',
+    clearScreen: false,
+    envPrefix: ['VITE_', 'TAURI_'],
     plugins: [
       vue(),
       vueJsx(),
-      viteMockServe({
-        mockPath: './src/mock', // mock文件地址
-        localEnabled: true, // 开发打包开关
-        prodEnabled: false, // 生产打包开关
-        logger: true, //是否在控制台显示请求日志
-        supportTs: true
-      }),
       AutoImport({
         dts: 'src/auto-imports.d.ts',
         imports: ['vue', 'vue-router'],
@@ -41,7 +34,11 @@ export default ({ mode }) => {
         resolvers: []
       }),
       PkgConfig(),
-      OptimizationPersist()
+      OptimizationPersist(),
+      viteMockServe({
+        mockPath: './src/mock',
+        localEnabled: true
+      })
     ],
     server: {
       host: true,
@@ -60,7 +57,7 @@ export default ({ mode }) => {
     },
     resolve: {
       alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url))
+        '@': resolve(__dirname, './src/')
       }
     },
     css: {
@@ -80,8 +77,14 @@ export default ({ mode }) => {
           drop_console: true
         }
       },
-      outDir: 'dist', //指定输出路径
-      assetsDir: 'assets' //指定生成静态资源的存放路径
+      outDir: 'dist', // 指定输出路径
+      assetsDir: 'assets', // 指定生成静态资源的存放路径
+      // Tauri uses Chromium on Windows and WebKit on macOS and Linux
+      target: process.env.TAURI_PLATFORM == 'windows' ? 'chrome105' : 'safari13',
+      // don't minify for debug builds
+      minify: 'terser',
+      // 为调试构建生成源代码映射 (sourcemap)
+      sourcemap: !!process.env.TAURI_DEBUG,
     }
   })
 }

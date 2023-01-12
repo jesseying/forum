@@ -8,7 +8,8 @@ module.exports = {
     'eslint:recommended',
     '@vue/eslint-config-typescript/recommended',
     '@vue/eslint-config-prettier',
-    // unplugin-auto-import :: generated automatically
+    './.eslintrc-auto-import.json',
+    // @unplugin-auto-import :: generated automatically
   ],
   env: {
     browser: true,
@@ -21,6 +22,7 @@ module.exports = {
     '@typescript-eslint/no-non-null-assertion': 'off',
     '@typescript-eslint/ban-types': 'off',
     '@typescript-eslint/ban-ts-ignore': 'off',
+    "@typescript-eslint/ban-ts-comment": "off",
     '@typescript-eslint/no-unused-vars': [
       'warn',
       {
@@ -35,6 +37,8 @@ module.exports = {
         varsIgnorePattern: '^_',
       },
     ],
+    // "no-unused-vars": 'off',
+    // 'no-undef': 'off',
     'vue/v-on-event-hyphenation': 'off',
     'vue/custom-event-name-casing': 'off',
     'vue/component-definition-name-casing': 'off',
@@ -96,6 +100,6 @@ module.exports = {
       vueIndentScriptAndStyle: false,
       // 换行符使用 lf 结尾是 可选值"<auto|lf|crlf|cr>"
       endOfLine: 'lf'
-    }],
-  },
-};
+    }]
+  }
+}
